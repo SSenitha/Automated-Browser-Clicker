@@ -34,6 +34,11 @@ input {
   color: white;
 }
 
+.interval{
+    width: 53%;
+    margin-bottom: 15px;
+}
+
 input:focus {
   background: #44446a;
 }
