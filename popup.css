@@ -7,10 +7,9 @@ body {
 
 .container {
   padding: 15px;
-  border-radius: 16px;
   background: #2a2a40;
   color: white;
-  width: 260px;
+  width: 200px;
 }
 
 h3 {
@@ -24,8 +23,9 @@ label {
 }
 
 input {
-  width: 100%;
+  width: 32%;
   margin-bottom: 10px;
+  margin-right: 8px;
   padding: 6px;
   border-radius: 8px;
   border: none;
@@ -41,6 +41,7 @@ input:focus {
 .buttons {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 button {
@@ -55,19 +56,19 @@ button {
 }
 
 #start {
-  background: #4caf50;
+  background: #17741a;
   color: white;
 }
 
 #start:hover {
-  background: #45a049;
+  background: #239e29;
 }
 
 #stop {
-  background: #f44336;
+  background: #921910;
   color: white;
 }
 
 #stop:hover {
-  background: #da190b;
+  background: #c8170a;
 }
