@@ -1,27 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <style>
-    body { font-family: Arial; padding: 10px; width: 200px; }
-    input { width: 80px; margin-bottom: 5px; }
-  </style>
-</head>
-<body>
-  <h3>Auto Clicker</h3>
-  <!-- Input for first click-->
-  X: <input type="number" id="x"><br>
-  Y: <input type="number" id="y"><br>
-  Interval (ms): <input type="number" id="interval"><br><br>
   
-  <!-- Input for second click-->
-  X: <input type="number" id="x2"><br>
-  Y: <input type="number" id="y2"><br>
-  Interval (ms): <input type="number" id="interval2"><br>
+  <head>
+    <link rel="stylesheet" href="popup.css">
+    <!--<style>
+      body {
+        font-family: Arial;
+        margin: 0;
+        padding: 0px;
+        width: 200px;
+        background: transparent;
+      }
+      .container{
+        padding: 15px;
+      }
+      input {
+        width: 80px;
+        margin-bottom: 5px;
+      }
+    </style>-->
+  </head>
 
-  <!-- Buttons for Start and Stop -->
-  <button id="start">Start</button>
-  <button id="stop">Stop</button>
+  <body>
+    <div class="container">
+      <h3>Auto Clicker 1.0</h3>
 
-  <script src="popup.js"></script>
-</body>
+      <I>First Click Position</I><br><br>
+      <!-- Input for first click-->
+      X: <input type="number" id="x" />
+      Y: <input type="number" id="y" /><br />
+      Interval (ms): <input class="interval" type="number" id="interval" /><br /><br />
+
+      <I>Second Click Position</I><br><br>
+      <!-- Input for second click-->
+      X: <input type="number" id="x2" />
+      Y: <input type="number" id="y2" /><br />
+      Interval (ms): <input class="interval" type="number" id="interval2" /><br />
+
+      <div class = "buttons">
+        <!-- Buttons for Start and Stop -->
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
 </html>

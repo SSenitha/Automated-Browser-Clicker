@@ -1,6 +1,6 @@
 let clicking = false;
 
-// Func listner: Start Action
+// Button listner: Start Button
 document.getElementById("start").addEventListener("click", async () => {
   // Get input1 values
   const x = parseInt(document.getElementById("x").value);
@@ -26,7 +26,7 @@ document.getElementById("start").addEventListener("click", async () => {
 });
 
 
-// Func listner: Stop Action
+// Button listner: Stop Button
 document.getElementById("stop").addEventListener("click", async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
@@ -37,7 +37,7 @@ document.getElementById("stop").addEventListener("click", async () => {
   });
 });
 
-// Button listner: Start Button
+// Func : Start Action
 function startClicking(x, y, interval, x2, y2, interval2) {
   if (window.autoClickInterval) return;
 
@@ -57,7 +57,7 @@ function startClicking(x, y, interval, x2, y2, interval2) {
   }, interval2);
 }
 
-// Button listner: Stop Button
+// Func : Stop Action
 function stopClicking() {
   clearInterval(window.autoClickInterval);
   window.autoClickInterval = null;
