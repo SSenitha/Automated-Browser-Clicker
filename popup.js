@@ -40,25 +40,48 @@ document.getElementById("stop").addEventListener("click", async () => {
 // Func : Start Action
 function startClicking(x, y, interval, x2, y2, interval2) {
   if (window.autoClickInterval) return;
+  window.isClicking = true;
 
-  window.autoClickInterval = setInterval(async () => {
-    const el = document.elementFromPoint(x, y);
-    if (el) {
-      el.click();
+  // window.autoClickInterval = setInterval(async () => {
+  //   const el = document.elementFromPoint(x, y);
+  //   if (el) {
+  //     el.click();
+  //   }
+
+  //   await new Promise(resolve => setTimeout(resolve, interval)); // Wait for the first click interval
+
+  //   const el2 = document.elementFromPoint(x2, y2);
+  //   if (el2) {
+  //     el2.click();
+  //   }
+
+  // }, interval2);
+
+  async function clickLoop() {
+    while (window.isClicking) {
+      const el = document.elementFromPoint(x, y);
+      if (el) {
+       el.click();
+      }
+
+      await new Promise(resolve => setTimeout(resolve, interval)); // Wait for the first click interval
+
+      const el2 = document.elementFromPoint(x2, y2);
+      if (el2) {
+        el2.click();
+      }
+
+      await new Promise(resolve => setTimeout(resolve, interval2)); // Wait for the second click interval before the next loop
     }
+  }
 
-    await new Promise(resolve => setTimeout(resolve, interval)); // Wait for the first click interval
-
-    const el2 = document.elementFromPoint(x2, y2);
-    if (el2) {
-      el2.click();
-    }
-
-  }, interval2);
+  clickLoop();
+  
 }
 
 // Func : Stop Action
 function stopClicking() {
   clearInterval(window.autoClickInterval);
   window.autoClickInterval = null;
+  window.isClicking = false;
 }
