@@ -1,5 +1,77 @@
 let clicking = false;
 
+document.addEventListener("keydown", async (e) => {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!(e.altKey && (e.key === "1" || e.key === "2"))) return;
+  let x, y;
+
+  chrome.tabs.sendMessage(
+    tab.id,
+    { action: "getMousePosition" }, // message
+
+    (response) => {
+      if (chrome.runtime.lastError) {
+        console.error("Error sending message:",chrome.runtime.lastError.message,);
+        return;
+      }
+
+      // Safe access to response properties to keep undefined values without throwing an error
+      x = response?.x;
+      y = response?.y;
+
+      if (x === undefined || y === undefined) return; //Guard clause: If either is undefined, do not proceed
+
+      if (e.altKey && e.key === "1") {
+        document.getElementById("x").value = x;
+        document.getElementById("y").value = y;
+      } else if (e.altKey && e.key === "2") {
+        document.getElementById("x2").value = x;
+        document.getElementById("y2").value = y;
+      }
+
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        // Temporary function to simulate click.
+        func: (x, y) => {
+          document.elementFromPoint(x, y).click();
+        },
+        args: [x, y],
+      });
+    },
+  );
+});
+
+// document.addEventListener("mousemove", e => {
+//   mouseX = e.clientX;
+//   mouseY = e.clientY;
+// });
+
+// chrome.scripting.executeScript({
+//   target: { tabId: tab.id },
+//   func: e => {
+//     mouseX = e.clientX;
+//     mouseY = e.clientY;
+//   }
+// });
+
+// document.addEventListener("keydown", async e => {
+//   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+//   chrome.scripting.executeScript({
+//     target: { tabId: tab.id },
+//     func: e => {
+//       mouseX = e.clientX;
+//       mouseY = e.clientY;
+//     }
+//   });
+  
+//   console.log(e.key);
+//   document.getElementById("x").value = mouseX;
+//   document.getElementById("y").value = mouseY;
+// });
+
+//========================================================================================================
+
 // Button listner: Start Button
 document.getElementById("start").addEventListener("click", async () => {
   // Get input1 values
@@ -82,6 +154,5 @@ function startClicking(x, y, interval, x2, y2, interval2) {
 // Func : Stop Action
 function stopClicking() {
   clearInterval(window.autoClickInterval);
-  window.autoClickInterval = null;
   window.isClicking = false;
 }
