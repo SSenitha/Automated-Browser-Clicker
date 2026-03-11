@@ -15,20 +15,20 @@ document.addEventListener("keydown", async (e) => {
         return;
       }
 
-      // Safe access to response properties to keep undefined values without throwing an error
-      x = response?.x;
+      x = response?.x; // Safe access to response properties to keep undefined values without throwing an error
       y = response?.y;
 
       if (x === undefined || y === undefined) return; //Guard clause: If either is undefined, do not proceed
 
       if (e.altKey && e.key === "1") {
-        document.getElementById("x").value = x;
-        document.getElementById("y").value = y;
+        document.getElementById("x").textContent = x;
+        document.getElementById("y").textContent = y;
       } else if (e.altKey && e.key === "2") {
-        document.getElementById("x2").value = x;
-        document.getElementById("y2").value = y;
+        document.getElementById("x2").textContent = x;
+        document.getElementById("y2").textContent = y;
       }
 
+      //After assigning the coordinates to the elements, a click simulated.
       chrome.scripting.executeScript({
         target: { tabId: tab.id },
         // Temporary function to simulate click.
@@ -41,50 +41,19 @@ document.addEventListener("keydown", async (e) => {
   );
 });
 
-// document.addEventListener("mousemove", e => {
-//   mouseX = e.clientX;
-//   mouseY = e.clientY;
-// });
 
-// chrome.scripting.executeScript({
-//   target: { tabId: tab.id },
-//   func: e => {
-//     mouseX = e.clientX;
-//     mouseY = e.clientY;
-//   }
-// });
 
-// document.addEventListener("keydown", async e => {
-//   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-//   chrome.scripting.executeScript({
-//     target: { tabId: tab.id },
-//     func: e => {
-//       mouseX = e.clientX;
-//       mouseY = e.clientY;
-//     }
-//   });
-  
-//   console.log(e.key);
-//   document.getElementById("x").value = mouseX;
-//   document.getElementById("y").value = mouseY;
-// });
-
-//========================================================================================================
-
-// Button listner: Start Button
+//------------------_Button listner: Start Button_------------------
 document.getElementById("start").addEventListener("click", async () => {
   // Get input1 values
-  const x = parseInt(document.getElementById("x").value);
-  const y = parseInt(document.getElementById("y").value);
+  const x = parseInt(document.getElementById("x").textContent);
+  const y = parseInt(document.getElementById("y").textContent);
   const interval = parseInt(document.getElementById("interval").value);
 
   // Get input2 values
-  const x2 = parseInt(document.getElementById("x2").value);
-  const y2 = parseInt(document.getElementById("y2").value);
+  const x2 = parseInt(document.getElementById("x2").textContent);
+  const y2 = parseInt(document.getElementById("y2").textContent);
   const interval2 = parseInt(document.getElementById("interval2").value);
-
-  clicking = true;
 
   // Get the active tab
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -98,7 +67,8 @@ document.getElementById("start").addEventListener("click", async () => {
 });
 
 
-// Button listner: Stop Button
+
+//-------------------_Button listner: Stop Button_-------------------
 document.getElementById("stop").addEventListener("click", async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
@@ -109,28 +79,15 @@ document.getElementById("stop").addEventListener("click", async () => {
   });
 });
 
-// Func : Start Action
+
+
+//-----------------------_Func : Start Action_-----------------------
 function startClicking(x, y, interval, x2, y2, interval2) {
   if (window.autoClickInterval) return;
-  window.isClicking = true;
-
-  // window.autoClickInterval = setInterval(async () => {
-  //   const el = document.elementFromPoint(x, y);
-  //   if (el) {
-  //     el.click();
-  //   }
-
-  //   await new Promise(resolve => setTimeout(resolve, interval)); // Wait for the first click interval
-
-  //   const el2 = document.elementFromPoint(x2, y2);
-  //   if (el2) {
-  //     el2.click();
-  //   }
-
-  // }, interval2);
+  clicking = true;
 
   async function clickLoop() {
-    while (window.isClicking) {
+    while (clicking) {
       const el = document.elementFromPoint(x, y);
       if (el) {
        el.click();
@@ -151,8 +108,10 @@ function startClicking(x, y, interval, x2, y2, interval2) {
   
 }
 
-// Func : Stop Action
+
+
+//-----------------------_Func : Stop Action_-----------------------
 function stopClicking() {
   clearInterval(window.autoClickInterval);
-  window.isClicking = false;
+  clicking = false;
 }
