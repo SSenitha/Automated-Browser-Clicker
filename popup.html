@@ -3,22 +3,6 @@
   
   <head>
     <link rel="stylesheet" href="popup.css">
-    <!--<style>
-      body {
-        font-family: Arial;
-        margin: 0;
-        padding: 0px;
-        width: 200px;
-        background: transparent;
-      }
-      .container{
-        padding: 15px;
-      }
-      input {
-        width: 80px;
-        margin-bottom: 5px;
-      }
-    </style>-->
   </head>
 
   <body>
@@ -27,15 +11,15 @@
 
       <I>First Click Position (Alt+1)</I><br><br>
       <!-- Input for first click-->
-      X: <input type="number" id="x" />
-      Y: <input type="number" id="y" /><br />
+      X: <span type="number" id="x"></span>
+      Y: <span type="number" id="y"></span><br />
       <!-- Interval values has to move to JS-->
       Interval (ms): <input class="interval" type="number" id="interval" value="1000"/><br /><br />
 
       <I>Second Click Position (Alt+2)</I><br><br>
       <!-- Input for second click-->
-      X: <input type="number" id="x2" />
-      Y: <input type="number" id="y2" /><br />
+      X: <span type="number" id="x2"></span>
+      Y: <span type="number" id="y2"></span><br />
       <!-- Interval values has to move to JS-->
       Interval (ms): <input class="interval" type="number" id="interval2" value="1000" /><br />
 
