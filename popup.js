@@ -11,7 +11,7 @@ document.addEventListener("keydown", async (e) => {
 
     (response) => {
       if (chrome.runtime.lastError) {
-        console.error("Error sending message:",chrome.runtime.lastError.message,);
+        console.error("Error sending message:",chrome.runtime.lastError.message);
         return;
       }
 
